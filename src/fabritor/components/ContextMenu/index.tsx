@@ -2,12 +2,19 @@ import { useImperativeHandle, forwardRef, useState, useContext } from 'react';
 import type { MenuProps } from 'antd';
 import { Dropdown, Flex } from 'antd';
 import { SKETCH_ID } from '@/utils/constants';
-import { copyObject, pasteObject, removeObject, groupSelection, ungroup, changeLayerLevel } from '@/utils/helper';
+import {
+  copyObject,
+  pasteObject,
+  removeObject,
+  groupSelection,
+  ungroup,
+  changeLayerLevel,
+} from '@/utils/helper';
 import { GlobalStateContext } from '@/context';
 import { useTranslation } from '@/i18n/utils';
 
 // ⌘ C
-const ContextMenuItem = (props) => {
+const ContextMenuItem = props => {
   const { label, keyboard, cmdKey = false } = props;
   const { t } = useTranslation();
   const isMac = navigator.userAgent.indexOf('Mac OS X') > -1;
@@ -15,18 +22,21 @@ const ContextMenuItem = (props) => {
   const getCmdkey = () => {
     if (cmdKey) {
       if (isMac) return '⌘';
-      return 'Ctrl'
+      return 'Ctrl';
     }
     return '';
-  }
+  };
 
   return (
-    <Flex gap={68} justify="space-between">
+    <Flex
+      gap={68}
+      justify="space-between"
+    >
       <span>{label}</span>
       <span>{`${getCmdkey()} ${keyboard}`}</span>
     </Flex>
-  )
-}
+  );
+};
 
 const ContextMenu = (props, ref) => {
   const { object, noCareOpen } = props;
@@ -38,19 +48,37 @@ const ContextMenu = (props, ref) => {
     if (!object || object.id === SKETCH_ID) {
       return [
         {
-          label: <ContextMenuItem label={t('setter.common.paste')} keyboard="V" cmdKey />,
+          label: (
+            <ContextMenuItem
+              label={t('setter.common.paste')}
+              keyboard="V"
+              cmdKey
+            />
+          ),
           key: 'paste',
-        }
-      ]
+        },
+      ];
     }
 
-    const menuItems: MenuProps['items']  = [
+    const menuItems: MenuProps['items'] = [
       {
-        label: <ContextMenuItem label={t('setter.common.copy')} keyboard="C" cmdKey />,
+        label: (
+          <ContextMenuItem
+            label={t('setter.common.copy')}
+            keyboard="C"
+            cmdKey
+          />
+        ),
         key: 'copy',
       },
       {
-        label: <ContextMenuItem label={t('setter.common.paste')} keyboard="V" cmdKey />,
+        label: (
+          <ContextMenuItem
+            label={t('setter.common.paste')}
+            keyboard="V"
+            cmdKey
+          />
+        ),
         key: 'paste',
       },
       {
@@ -58,10 +86,15 @@ const ContextMenu = (props, ref) => {
         key: 'copy&paste',
       },
       {
-        label: <ContextMenuItem label={t('setter.common.del')} keyboard="DEL" />,
+        label: (
+          <ContextMenuItem
+            label={t('setter.common.del')}
+            keyboard="DEL"
+          />
+        ),
         key: 'del',
       },
-    ]
+    ];
 
     if (object.type === 'activeSelection') {
       menuItems.push({
@@ -96,23 +129,23 @@ const ContextMenu = (props, ref) => {
             key: 'layer-up',
           },
           {
-            label:  t('setter.common.layer_top'),
+            label: t('setter.common.layer_top'),
             key: 'layer-top',
           },
           {
-            label:  t('setter.common.layer_down'),
+            label: t('setter.common.layer_down'),
             key: 'layer-down',
           },
           {
-            label:  t('setter.common.layer_bottom'),
-            key: 'layer-bottom'
-          }
-        ]
+            label: t('setter.common.layer_bottom'),
+            key: 'layer-bottom',
+          },
+        ],
       });
     }
-    
+
     return menuItems;
-  }
+  };
 
   const handleClick = async ({ key }) => {
     switch (key) {
@@ -141,10 +174,10 @@ const ContextMenu = (props, ref) => {
       case 'layer-bottom':
         changeLayerLevel(key, editor, object);
       default:
-        break; 
+        break;
     }
     setOpen(false);
-  } 
+  };
 
   useImperativeHandle(ref, () => ({
     show: () => setOpen(true),
@@ -159,7 +192,7 @@ const ContextMenu = (props, ref) => {
     >
       {props.children}
     </Dropdown>
-  )
-}
+  );
+};
 
 export default forwardRef(ContextMenu);

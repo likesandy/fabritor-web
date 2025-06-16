@@ -23,15 +23,15 @@ const PxInputNumber = (props) => {
       changeOnBlur
       value={innerValue}
       onChange={setInnerValue}
-      onPressEnter={() => { onChange?.(innerValue) }}
+      onPressEnter={() => { onChange?.(innerValue); }}
       {...rest}
     />
-  )
-}
+  );
+};
 
 const noScaledSizeTypes = ['textbox', 'f-text', 'rect'];
 
-export default function PositionSetter () {
+export default function PositionSetter() {
   const { editor, object } = useContext(GlobalStateContext);
   const { t } = useTranslation();
   const [showMore, setShowMore] = useState(false);
@@ -45,7 +45,7 @@ export default function PositionSetter () {
         object.set({
           width: realValue,
           scaleX: 1,
-          scaleY: 1
+          scaleY: 1,
         });
       } else {
         object.scaleToWidth(realValue, true);
@@ -55,13 +55,13 @@ export default function PositionSetter () {
         object.set({
           height: realValue,
           scaleX: 1,
-          scaleY: 1
+          scaleY: 1,
         });
       } else {
         object.scaleToHeight(realValue, true);
       }
     }
-  }
+  };
 
   const handleChange = (values) => {
     Object.keys(values).forEach(key => {
@@ -76,7 +76,7 @@ export default function PositionSetter () {
 
     editor.canvas.requestRenderAll();
     editor.fireCustomModifiedEvent();
-  }
+  };
 
   const setFormData = () => {
     form.setFieldsValue({
@@ -85,13 +85,13 @@ export default function PositionSetter () {
       lockRatio: true,
       left: object.left,
       top: object.top,
-      angle: object.angle
+      angle: object.angle,
     });
-  }
+  };
 
   const handleModified = () => {
     setFormData();
-  }
+  };
 
   const init = () => {
     isNoScaledSizeTypeRef.current = noScaledSizeTypes.includes(object.type);
@@ -101,8 +101,8 @@ export default function PositionSetter () {
 
     return () => {
       object.off('modified', handleModified);
-    }
-  }
+    };
+  };
 
   useEffect(() => {
     if (showMore && object && !object.group || object.type !== 'activeSelection') {
@@ -112,7 +112,7 @@ export default function PositionSetter () {
 
   return (
     <>
-      <Button block onClick={() => { setShowMore(true) }}>{t('setter.common.adjust_position')}</Button>
+      <Button block onClick={() => { setShowMore(true); }}>{t('setter.common.adjust_position')}</Button>
       <MoreConfigWrapper
         open={showMore}
         setOpen={setShowMore}
@@ -163,5 +163,5 @@ export default function PositionSetter () {
         </div>
       </MoreConfigWrapper>
     </>
-  )
+  );
 }

@@ -1,0 +1,44 @@
+.demo-layout {
+  .demo-workspace {
+    position: relative;
+    
+    canvas {
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  .ant-card {
+    .ant-card-body {
+      height: calc(100% - 57px);
+      overflow-y: auto;
+    }
+  }
+
+  .ant-form-item {
+    margin-bottom: 16px;
+  }
+
+  .ant-form-item-label {
+    padding-bottom: 4px;
+  }
+
+  // Color setter styling
+  .fabritor-color-setter {
+    .react-colors-beauty {
+      box-shadow: none !important;
+    }
+  }
+
+  .fabritor-toolbar-item {
+    cursor: pointer;
+    padding: 4px;
+    border: 1px solid #d9d9d9;
+    transition: all 0.2s;
+
+    &:hover {
+      border-color: #1677ff;
+    }
+  }
+}
