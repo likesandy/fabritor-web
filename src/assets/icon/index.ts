@@ -16,9 +16,9 @@ export const ROTATE_CURSOR = encodeURIComponent(`
     </filter>
     <path id='b' d='M1.67 12.67a7.7 7.7 0 0 0 0-9.34L0 5V0h5L3.24 1.76a9.9 9.9 0 0 1 0 12.48L5 16H0v-5l1.67 1.67z'/>
   </defs>
-  <g fill='none' fill-rule='evenodd'><path d='M0 24V0h24v24z'/>
-    <g fill-rule='nonzero' filter='url(#a)' transform='rotate(90 5.25 14.75)'>
-      <use fill='#000' fill-rule='evenodd' xlink:href='#b'/>
+  <g fill='none' fillRule='evenodd'><path d='M0 24V0h24v24z'/>
+    <g fillRule='nonzero' filter='url(#a)' transform='rotate(90 5.25 14.75)'>
+      <use fill='#000' fillRule='evenodd' xlink:href='#b'/>
       <path stroke='#FFF' d='M1.6 11.9a7.21 7.21 0 0 0 0-7.8L-.5 6.2V-.5h6.7L3.9 1.8a10.4 10.4 0 0 1 0 12.4l2.3 2.3H-.5V9.8l2.1 2.1z'/>
     </g>
   </g>
