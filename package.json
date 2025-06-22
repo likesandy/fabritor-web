@@ -4,10 +4,13 @@
   "description": "fabritor-web",
   "dependencies": {
     "@ant-design/icons": "^5.2.6",
+    "@dnd-kit/core": "^6.3.1",
+    "@dnd-kit/sortable": "^10.0.0",
     "@emoji-mart/data": "^1.1.2",
     "@emoji-mart/react": "^1.1.1",
     "@ice/runtime": "^1.2.7",
     "antd": "^5.11.0",
+    "chalk": "4.1.2",
     "cropperjs": "^1.6.1",
     "dayjs": "^1.11.11",
     "emoji-mart": "^5.5.2",
@@ -27,7 +30,7 @@
   },
   "devDependencies": {
     "@applint/spec": "^1.2.3",
-    "@ice/app": "^3.3.0",
+    "@ice/app": "^3.6.1",
     "@types/fabric": "^5.3.5",
     "@types/fontfaceobserver": "^2.1.2",
     "@types/node": "^18.11.17",

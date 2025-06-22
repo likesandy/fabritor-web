@@ -1,0 +1,244 @@
+.audio-editor {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background: #f8f9fa;
+  min-height: 100vh;
+}
+
+.audio-editor-header {
+  margin-bottom: 20px;
+  padding: 20px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.audio-editor-header .ant-btn {
+  height: 40px;
+  padding: 0 20px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.audio-editor-content {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  border: 1px solid #e8e8e8;
+}
+
+.content-header {
+  padding: 16px 24px;
+  background: #fafafa;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.text-input-area {
+  padding: 20px;
+  background: #f8f9fa;
+}
+
+/* 强制重置输入框样式 */
+.audio-editor .text-input-area .rich-text-editor,
+.audio-editor .rich-text-editor,
+div[contenteditable='true'].rich-text-editor {
+  min-height: 150px !important;
+  max-height: 400px !important;
+  overflow-y: auto !important;
+  border: 2px solid #d9d9d9 !important;
+  outline: none !important;
+  background: white !important;
+  border-radius: 8px !important;
+  padding: 16px !important;
+  font-size: 14px !important;
+  line-height: 1.6 !important;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, sans-serif !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06) !important;
+  transition: all 0.3s ease !important;
+  margin: 0 !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.audio-editor .text-input-area .rich-text-editor:hover,
+.audio-editor .rich-text-editor:hover,
+div[contenteditable='true'].rich-text-editor:hover {
+  border-color: #40a9ff !important;
+  box-shadow: 0 2px 8px rgba(24, 144, 255, 0.2) !important;
+}
+
+.audio-editor .text-input-area .rich-text-editor:focus,
+.audio-editor .rich-text-editor:focus,
+div[contenteditable='true'].rich-text-editor:focus {
+  background: white !important;
+  border-color: #1890ff !important;
+  box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2) !important;
+}
+
+.audio-editor .text-input-area .rich-text-editor:empty::before,
+.audio-editor .rich-text-editor:empty::before,
+div[contenteditable='true'].rich-text-editor:empty::before {
+  content: attr(data-placeholder) !important;
+  color: #999 !important;
+  font-style: italic !important;
+  font-size: 14px !important;
+  pointer-events: none !important;
+}
+
+/* 自定义停顿标记样式 */
+.pause-marker-element {
+  display: inline-block;
+  margin: 0 4px;
+  vertical-align: middle;
+  user-select: none;
+  cursor: pointer;
+  position: relative;
+}
+
+.pause-marker-content {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+  color: #722ed1;
+  padding: 4px 8px;
+  border-radius: 12px;
+  border: 2px solid #d3adf7;
+  font-size: 12px;
+  font-weight: 600;
+  box-shadow: 0 2px 4px rgba(114, 46, 209, 0.2);
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  position: relative;
+}
+
+.pause-marker-element:hover .pause-marker-content {
+  background: linear-gradient(135deg, #ff7875 0%, #f759ab 50%, #b37feb 100%);
+  box-shadow: 0 4px 8px rgba(114, 46, 209, 0.3);
+  transform: translateY(-1px) scale(1.05);
+}
+
+.pause-marker-element:active .pause-marker-content {
+  transform: translateY(0px) scale(0.98);
+  box-shadow: 0 2px 4px rgba(114, 46, 209, 0.4);
+}
+
+.pause-icon {
+  font-size: 10px;
+  display: inline-block;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+.pause-text {
+  font-size: 11px;
+  font-weight: bold;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
+}
+
+/* 添加点击提示 */
+.pause-marker-element::after {
+  content: '点击编辑';
+  position: absolute;
+  top: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 10px;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 1000;
+}
+
+.pause-marker-element:hover::after {
+  opacity: 1;
+}
+
+/* 选中停顿标记时的样式 */
+.pause-marker-element:focus,
+.pause-marker-element.selected {
+  outline: 2px solid #722ed1;
+  outline-offset: 2px;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .audio-editor {
+    padding: 10px;
+    max-width: 100%;
+  }
+
+  .audio-editor-header .ant-btn {
+    height: 36px;
+    padding: 0 16px;
+    font-size: 13px;
+  }
+
+  .text-input-area {
+    padding: 16px;
+  }
+
+  .rich-text-editor {
+    padding: 12px;
+    font-size: 13px;
+    min-height: 200px;
+  }
+
+  .pause-marker-content {
+    padding: 3px 6px;
+    font-size: 11px;
+  }
+
+  .pause-text {
+    font-size: 10px;
+  }
+
+  .pause-icon {
+    font-size: 9px;
+  }
+
+  /* 在移动设备上隐藏提示 */
+  .pause-marker-element::after {
+    display: none;
+  }
+}
+
+/* 动画效果 */
+.audio-editor-header .ant-btn {
+  transition: all 0.3s ease;
+}
+
+.audio-editor-header .ant-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.audio-editor-content {
+  transition: box-shadow 0.3s ease;
+}
+
+.audio-editor-content:hover {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
