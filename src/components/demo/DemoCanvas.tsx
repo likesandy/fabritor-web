@@ -1,6 +1,6 @@
 import { fabric } from 'fabric'
 import { useEffect, useRef, useState } from 'react'
-import { Layout, Button, Card, Space, Typography, Spin } from 'antd'
+import { Layout, Button, Card, Space, Typography, Spin, Radio } from 'antd'
 import { StarOutlined } from '@ant-design/icons'
 import Editor from '@/editor'
 import { GlobalStateContext } from '@/context'
@@ -81,6 +81,7 @@ export default function DemoCanvas() {
     fabric.Object | null | undefined
   >(null)
   const [isReady, setReady] = useState(false)
+  const [aspectRatio, setAspectRatio] = useState('4:3')
 
   const selectionHandler = (e: any) => {
     const activeObject = e.selected?.[0] || e.target
@@ -144,6 +145,19 @@ export default function DemoCanvas() {
       textAlign: 'left'
     })
   }
+
+  const handleAddVerticalText = async () => {
+    if (!editor) return;
+
+    await createTextbox({
+      text: 'Vertical Text',
+      canvas: editor.canvas,
+      lockMovementX: true,
+      fontSize: 32,
+      fill: '#000000',
+      textAlign: 'center'
+    });
+  };
 
   const handleAddSticker = () => {
     if (!editor) return
@@ -292,6 +306,14 @@ export default function DemoCanvas() {
             <Button
               type="default"
               size="large"
+              onClick={handleAddVerticalText}
+              disabled={!isReady}
+            >
+              Add Vertical Text
+            </Button>
+            <Button
+              type="default"
+              size="large"
               icon={<StarOutlined />}
               onClick={handleAddSticker}
               disabled={!isReady}
@@ -316,6 +338,43 @@ export default function DemoCanvas() {
             >
               Clear Canvas
             </Button>
+            <Radio.Group
+              value={aspectRatio}
+              onChange={(e) => {
+                const newRatio = e.target.value
+                setAspectRatio(newRatio)
+                if (editor) {
+                  let width, height
+                  switch (newRatio) {
+                    case '9:16':
+                      width = 600
+                      height = (600 * 16) / 9
+                      break
+                    case '16:9':
+                      width = (600 * 16) / 9
+                      height = 600
+                      break
+                    case '1:1':
+                      width = 600
+                      height = 600
+                      break
+                    case '4:3':
+                    default:
+                      width = 800
+                      height = 600
+                      break
+                  }
+                  editor.setSketchSize({ width, height })
+                }
+              }}
+              optionType="button"
+              buttonStyle="solid"
+            >
+              <Radio.Button value="9:16">9:16</Radio.Button>
+              <Radio.Button value="16:9">16:9</Radio.Button>
+              <Radio.Button value="1:1">1:1</Radio.Button>
+              <Radio.Button value="4:3">4:3</Radio.Button>
+            </Radio.Group>
           </Space>
         </div>
 

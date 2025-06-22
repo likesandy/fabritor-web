@@ -105,8 +105,37 @@ export default class Editor {
   }
 
   public setSketchSize(size) {
+    const oldWidth = this.sketch.width;
+    const oldHeight = this.sketch.height;
+
     this.sketch.set(size);
+    
+    const newWidth = this.sketch.width;
+    const newHeight = this.sketch.height;
+
+    if (oldWidth && oldHeight && (oldWidth !== newWidth || oldHeight !== newHeight)) {
+      const objects = this.canvas.getObjects().filter(obj => (obj as any).id !== 'fabritor-sketch');
+      const widthRatio = newWidth / oldWidth;
+      const heightRatio = newHeight / oldHeight;
+
+      objects.forEach(obj => {
+        const newProps: any = {};
+        if (obj.lockMovementX) {
+          // Horizontally centered
+          newProps.left = newWidth / 2 - obj.getScaledWidth() / 2;
+          newProps.top = (obj.top || 0) * heightRatio;
+        } else {
+          // Proportional positioning for other elements
+          newProps.left = (obj.left || 0) * widthRatio;
+          newProps.top = (obj.top || 0) * heightRatio;
+        }
+        obj.set(newProps);
+        obj.setCoords();
+      });
+    }
+
     this._adjustSketch2Canvas();
+    this.canvas.requestRenderAll();
   }
 
   private _initResizeObserver() {
